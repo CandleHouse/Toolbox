@@ -1,0 +1,23 @@
+Name: mangoct-helper
+
+AirCorrection:
+  use_air_correction: False
+  input_dir: 'F:\HUSTReconstruct\image\air'
+  output_dir: 'F:\HUSTReconstruct\image\air_average'
+  filename: 'air_average.raw'
+  air_image_width: 3072
+  air_image_height: 1944
+
+
+ProjectedImage:
+  input_dir: 'F:\HUSTReconstruct\image\proj'
+  output_dir: 'F:\HUSTReconstruct\image\postlog'
+  filename: 'postlog_img.raw'
+  projection_width: 3072
+  projection_height: 1944
+  # normally, views equal to the number of projection images under 'input_dir'
+  view: 400
+  # define the number of images per slice, must greater than 1. (int)
+  image_count_per_slice: 10
+  # in case of the air correction image electric current is different from object projection image, default is 1.
+  air_average_proportion_adjust: 2.5
