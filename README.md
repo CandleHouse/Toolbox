@@ -1,4 +1,4 @@
-# Colltecitons of some useful stuff
+# Collections of some useful stuff
 The following tools listed bellow are mainly for better use [mangoct](https://github.com/ustcfdm/mangoct).
 ### 1. postfix change
 ```angular2html
