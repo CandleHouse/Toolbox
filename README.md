@@ -15,6 +15,7 @@ python toRaw.py -d your-folder -p your-postfix
 ./preprocess/proj2sinogram.py
 ```
 [mangoct](https://github.com/ustcfdm/mangoct) only accept sinogram, so when use cone beam reconstruction, keep the y axis the same and look at the x and V axes to construct sinogram. In other words, do the following change:
+
 postlog_img(x, y, V) => postlog_img(x, V, y).
 
 You can also use 'proj2sinogram.py' to do simple air correction, see 'config_helper.yml' for more config information.
