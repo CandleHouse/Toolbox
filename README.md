@@ -10,6 +10,8 @@ Usage: use '--help' to show the hint, or:
 ```angular2html
 python toRaw.py -d your-folder -p your-postfix
 ```
+_Warning: To avoid dictionary order's influence on projection sequence, if the file names are all numbers, they will get added zeros._
+
 ### 2. preprocess
 ```angular2html
 ./preprocess/proj2sinogram.py

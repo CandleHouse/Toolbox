@@ -1,16 +1,20 @@
 import argparse
 import os
+import re
 
 
 def transform_postfix(dir_path, postfix='raw', dir_included=False):
     old_file_list = os.listdir(dir_path)  # 当前文件夹下所有文件名称
 
+    num = [re.findall('\d+', i) for i in old_file_list]  # 避免字典序给投影顺序带来的困扰，对所有文件的数字补 0
+    replenish = max(len(i[0]) for i in num)  # 补 0 的个数
+
     for old_name in old_file_list:
         has_postfix = old_name.find('.')  # 找第一个 .
         if has_postfix == -1:  # 文件没有后缀
-            new_name = old_name + '.' + postfix
+            new_name = str(old_name).rjust(replenish, '0') + '.' + postfix
         else:  # 文件有后缀，或者多个后缀
-            new_name = old_name[: has_postfix] + '.' + postfix
+            new_name = str(old_name[: has_postfix]).rjust(replenish, '0') + '.' + postfix
 
         old_dir = os.path.join(dir_path, old_name)
         new_dir = os.path.join(dir_path, new_name)
@@ -18,7 +22,7 @@ def transform_postfix(dir_path, postfix='raw', dir_included=False):
         if not os.path.isdir(old_dir) and not dir_included:  # 默认忽略文件夹
             os.rename(old_dir, new_dir)
 
-    print('All Done')
+    print('All Done!')
 
 
 if __name__ == '__main__':
