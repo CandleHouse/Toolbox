@@ -13,7 +13,7 @@ def air_average(air_correction):
     w = air_correction['air_image_width']
     h = air_correction['air_image_height']
 
-    filename_list = os.listdir(input_dir)  # all files under the directory
+    filename_list = sorted(os.listdir(input_dir))  # all files under the directory
     temp = np.zeros(w * h, dtype=np.float32)
 
     for filename in tqdm(range(len(filename_list))):
@@ -51,7 +51,7 @@ def proj2sinogram(projection_image, air_correction):
         air_average_proportion_adjust = projection_image['air_average_proportion_adjust']
 
     # convert projection to sinogram
-    filename_list = os.listdir(input_dir)  # all files under the directory
+    filename_list = sorted(os.listdir(input_dir))  # all files under the directory
     postlog_img = np.zeros((h, view, w), dtype=np.float32)  # y, V, x format to save easily
 
     for i in trange(view):
