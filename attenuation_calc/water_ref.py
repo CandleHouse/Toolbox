@@ -61,7 +61,8 @@ class WaterAttenuationCoefficientReference:
         end = np.where(spec_energy_range == self.cutoff_voltage)[0][0] + 1
         self.photons = np.array(photons[start: end], dtype=np.float)
 
-    def calc_ref(self):
+    def calc_ref(self, detector='FPD'):
+        assert (detector == 'FPD' or detector == 'PCD'), 'Only support FPD and PCD'
         # __init__
         self.read_attenuation_per_density()
         self.attenuation_interp()
@@ -69,18 +70,21 @@ class WaterAttenuationCoefficientReference:
         # choose right attention/density range from 10-140 keV
         start = self.start_voltage - 10
         end = self.cutoff_voltage - 10 + 1
-        miu_ref = sum(self.photons * self.attenuation_new[start: end]) / sum(self.photons) / 10
+        energy_range = 1 if detector == 'PCD' else np.linspace(self.start_voltage, self.cutoff_voltage, end-start)
+        miu_ref = sum(self.photons * energy_range * self.attenuation_new[start: end]) / sum(self.photons * energy_range) / 10
         # output to screen
         tb = pt.PrettyTable()
         tb.field_names = ['Start Voltage', 'Cut-off Voltage', 'μ_water,ref']
         tb.add_row([str(self.start_voltage)+' keV', str(self.cutoff_voltage+1)+' keV', str("%.5f" % miu_ref)+' mm^-1'])
-        print(tb.get_string(title='Water Attenuation Coefficient Reference'))
+        print(tb.get_string(title='Water Attenuation Coefficient Reference ({})'.format(detector)))
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-d', '--dir', nargs='+', help='Spectrum file path')
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
+    parser.add_argument('dir', nargs='+', help='Spectrum file path')
+    parser.add_argument('-d', '--detector', default='FPD', help='FPD: flat panel detector,\n'
+                                                                'PCD: photon counting detector\n'
+                                                                'default is FPD')
     args = parser.parse_args()
-
     water = WaterAttenuationCoefficientReference(args.dir[0])
-    water.calc_ref()
+    water.calc_ref(args.detector)

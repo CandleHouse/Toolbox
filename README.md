@@ -20,6 +20,8 @@ _Warning: File name contains extra '.' can cause unexpected truncation._
 
 **postlog_img(x, y, V) => postlog_img(x, V, y)**
 
+![proj2sinogram.png](assets/proj2sinogram.png)
+
 You can also use 'proj2sinogram.py' to do simple air correction, see 'config_helper.yml' for more config information.
 
 Usage: use '--help' to show the hint, or:
@@ -39,8 +41,11 @@ Example files are in './attenuation_calc/spec/'.
 
 Usage: use '--help' to show the hint, or:
 ```angular2html
-python water_ref.py -d your-spectrum-file-path
+python water_ref.py your-spectrum-file-path -d detector-FPD-or-PCD
 ```
+And the output would be like:
+![miu_water_ref.png](assets/miu_water_ref.png)
+
 _No spectrum files? Measure your own machine or use SPEKTR 3.0 to simulate, this tool can process its direct output file._
 
 Click [SPEKTR 3.0](https://istar.jhu.edu/downloads/) to find Source Code and Technical Note.
