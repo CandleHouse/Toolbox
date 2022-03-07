@@ -44,6 +44,7 @@ Usage: use '--help' to show the hint, or:
 python water_ref.py your-spectrum-file-path -d detector-FPD-or-PCD
 ```
 And the output would be like:
+
 ![miu_water_ref.png](assets/miu_water_ref.png)
 
 _No spectrum files? Measure your own machine or use SPEKTR 3.0 to simulate, this tool can process its direct output file._
